@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Dice - Interactivity</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<style type="text/css">
+			body {
+				margin: 0 auto;
+				max-width: 40em;
+				width: 88%;
+			}
+		</style>
+	</head>
+	<body>
+
+		<h1>Dice - Interactivity</h1>
+
+		<roll-dice></roll-dice>
+		<roll-dice>Roll a D6</roll-dice>
+
+
+		<script>
+			class RollDice extends HTMLElement {
+
+				/**
+				 * The constructor object
+				 */
+				constructor () {
+
+					// Access parent class properties and methods
+					super();
+
+					// Render HTML
+					let btnText = this.innerHTML.trim();
+					this.innerHTML =
+						`<p>
+							<button>${btnText ? btnText : 'Roll Dice'}</button>
+						</p>
+						<div aria-live="polite"></div>`;
+
+				}
+
+			}
+
+			if ('customElements' in window) {
+				customElements.define('roll-dice', RollDice);
+			}
+		</script>
+	</body>
+</html>

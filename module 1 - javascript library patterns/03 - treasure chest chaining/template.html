@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Treasure Chest - Chaining & Static Methods</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<style type="text/css">
+			body {
+				margin: 0 auto;
+				max-width: 40em;
+				width: 88%;
+			}
+		</style>
+	</head>
+	<body>
+
+		<h1>Treasure Chest - Chaining & Static Methods</h1>
+
+		<p>All of the magic here happens in the console.</p>
+
+
+		<script>
+			let TreasureChest = (function () {
+
+				/**
+				 * Create the constructor object
+				 */
+				function Constructor () {
+					this.bronze = 0;
+					this.silver = 0;
+					this.gold = 0;
+				}
+
+				/**
+				 * Add bronze to the treasure chest
+				 * @param {Number} n The amount to add
+				 */
+				Constructor.prototype.addBronze = function (n) {
+					this.bronze += n;
+					return this.bronze;
+				};
+
+				/**
+				 * Add silver to the treasure chest
+				 * @param {Number} n The amount to add
+				 */
+				Constructor.prototype.addSilver = function (n) {
+					this.silver += n;
+					return this.silver;
+				};
+
+				/**
+				 * Add gold to the treasure chest
+				 * @param {Number} n The amount to add
+				 */
+				Constructor.prototype.addGold = function (n) {
+					this.gold += n;
+					return this.gold;
+				};
+
+				/**
+				 * Get the total amount of loot as a string
+				 * @return {String} The total amount of loot
+				 */
+				Constructor.prototype.getLoot = function () {
+					return `You have ${this.gold} gold, ${this.silver} silver, and ${this.bronze} bronze.`;
+				};
+
+				return Constructor;
+
+			})();
+
+			// Create instances
+			let captain = new TreasureChest();
+			let firstMate = new TreasureChest();
+
+			// Add loot
+			captain.addGold(12);
+			captain.addSilver(4);
+
+			// Get loot
+			let bronze = captain.bronze;
+			let silver = captain.silver;
+			let gold = captain.gold;
+			let total = captain.getLoot();
+
+			console.log(bronze, silver, gold, total);
+		</script>
+	</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>Naming Conventions</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+
+	<body>
+
+		<script>
+			/**
+			 * Emit a custom event
+			 * @param  {String} type   The event type
+			 * @param  {*}      detail Any details to pass along with the event
+			 */
+			function emit (type, detail) {
+
+				// Create a new event
+				let event = new CustomEvent(type, {
+					bubbles: true,
+					cancelable: true,
+					detail: detail
+				});
+
+				// Dispatch the event
+				return document.dispatchEvent(event);
+
+			}
+
+
+			// kebab-case naming
+			emit('calculator-add');
+
+			// prefix-kebab naming
+			emit('calculator:add');
+
+			// camelCase
+			// AVOID THIS
+			emit('calculatorAdd');
+		</script>
+	</body>
+</html>
