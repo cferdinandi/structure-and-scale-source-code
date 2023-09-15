@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Dice - Revealing Module Pattern</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<style type="text/css">
+			body {
+				margin: 0 auto;
+				max-width: 40em;
+				width: 88%;
+			}
+		</style>
+	</head>
+	<body>
+
+		<h1>Dice - Revealing Module Pattern</h1>
+
+		<p>All of the magic here happens in the console.</p>
+
+
+		<script>
+			let roll = (function () {
+
+				// The dice sizes
+				let sizes = [2, 4, 6, 8, 10, 12, 20];
+
+				// Dice sizes
+				let dice = {};
+
+				// The external functions
+				let fns = {};
+
+				/**
+				 * Create a range of numbers
+				 * @param  {Number} min The first number in the range
+				 * @param  {Number} max The last number in the range
+				 * @return {Array}      The range
+				 */
+				function range (min, max) {
+
+					// If only one number is provided, start at one
+					if (max === undefined) {
+						max = min;
+						min = 1;
+					}
+
+					// Create a ranged array
+					return Array.from(new Array(max - min + 1).keys()).map(function (num) {
+						return num + min;
+					});
+
+				}
+
+				/**
+				 * Randomly shuffle an array
+				 * https://stackoverflow.com/a/2450976/1293256
+				 * @param  {Array} array The array to shuffle
+				 * @return {Array}       The shuffled array
+				 */
+				function shuffle (array) {
+
+					let currentIndex = array.length;
+					let temporaryValue, randomIndex;
+
+					// While there remain elements to shuffle...
+					while (0 !== currentIndex) {
+						// Pick a remaining element...
+						randomIndex = Math.floor(Math.random() * currentIndex);
+						currentIndex -= 1;
+
+						// And swap it with the current element.
+						temporaryValue = array[currentIndex];
+						array[currentIndex] = array[randomIndex];
+						array[randomIndex] = temporaryValue;
+					}
+
+					return array;
+
+				}
+
+				// Generate dice and functions
+				for (let size of sizes) {
+
+					// Generate dice
+					dice[size] = range(size);
+
+					// Generate function
+					fns[`d${size}`] = function () {
+						if (!dice[size]) return 0;
+						shuffle(dice[size]);
+						return dice[size][0];
+					};
+
+				}
+
+				return fns;
+
+			})();
+
+			let d2 = roll.d2();
+			let d4 = roll.d4();
+			let d6 = roll.d6();
+			let d8 = roll.d8();
+			let d10 = roll.d10();
+			let d12 = roll.d12();
+			let d20 = roll.d20();
+
+			console.log(d2, d4, d6, d8, d10, d12, d20);
+		</script>
+	</body>
+</html>
